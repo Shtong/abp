@@ -24,5 +24,11 @@ namespace Volo.Abp.Specifications
         /// </summary>
         /// <returns>The LINQ expression.</returns>
         Expression<Func<T, bool>> ToExpression();
+
+        /// <summary>
+        /// Gets a function that executes this specification against the specified object
+        /// </summary>
+        /// <returns>A function.</returns>
+        Func<T, bool> ToFunc();
     }
 }

@@ -27,12 +27,30 @@ namespace Volo.Abp.Specifications
         public abstract Expression<Func<T, bool>> ToExpression();
 
         /// <summary>
+        /// Gets a function that executes this specification against the specified object
+        /// </summary>
+        /// <returns>A function.</returns>
+        public Func<T, bool> ToFunc()
+        {
+            return ToExpression().Compile();
+        }
+
+        /// <summary>
         /// Implicitly converts a specification to expression.
         /// </summary>
         /// <param name="specification"></param>
         public static implicit operator Expression<Func<T, bool>>(Specification<T> specification)
         {
             return specification.ToExpression();
+        }
+
+        /// <summary>
+        /// Implicitly converts a specification to a function.
+        /// </summary>
+        /// <param name="specification"></param>
+        public static implicit operator Func<T, bool>(Specification<T> specification)
+        {
+            return specification.ToFunc();
         }
     }
 }
